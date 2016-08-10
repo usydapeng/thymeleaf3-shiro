@@ -1,0 +1,13 @@
+.classpath
+*/.classpath
+.project
+*/.project
+target/
+*/target/*
+.settings/
+*/.settings/*
+bin/
+build
+.idea
+local.properties
+*.iml
