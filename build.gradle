@@ -1,4 +1,5 @@
-group 'com.oldpeng.thymeleaf3-shiro'
+group 'org.zunpeng'
+
 version '0.0.1'
 
 apply plugin: 'java'

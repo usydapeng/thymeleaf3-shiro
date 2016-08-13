@@ -1,3 +1,40 @@
+Download
+---
+
+
+Maven
+```xml
+<repositories>
+    <repository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <id>bintray-usydapeng-maven</id>
+        <name>bintray</name>
+        <url>http://dl.bintray.com/usydapeng/maven</url>
+    </repository>
+</repositories>
+<dependencies>
+    <dependency>
+        <groupId>org.zunpeng</groupId>
+        <artifactId>thymeleaf3-shiro</artifactId>
+        <version>0.0.1</version>
+        <type>pom</type>
+    </dependency>
+</dependencies>
+```
+
+gradle
+```gradle
+repositories {
+    jcenter()
+}
+dependencies {
+    compile 'org.zunpeng:thymeleaf3-shiro:0.0.1'
+}
+```
+
+
 Shiro Tags Usage With Thymeleaf
 ---
 See [http://shiro.apache.org/tags](http://shiro.apache.org/tags) and
@@ -24,34 +61,6 @@ preferred approach:
         Welcome back John!  Not John? Click <a href="login.html">here<a> to login.
     </div>
 
-### The `authenticated` tag
-    <shiro:authenticated>
-        <a href="updateAccount.html">Update your contact information</a>.
-    </shiro:authenticated>
-
-preferred approach:
-
-    <a shiro:authenticated="" href="updateAccount.html">Update your contact information</a>
-
-### The `notAuthenticated` tag
-    <shiro:notAuthenticated>
-        <p>Please <a href="login.html">login</a> in order to update your credit card information.</p>
-    </shiro:notAuthenticated>
-
-preferred approach:
-
-    <p shiro:notAuthenticated="">
-        Please <a href="login.html">login</a> in order to update your credit card information.
-    </p>
-
-### The `principal` tag
-    <p>Hello, <shiro:principal/>, how are you today?</p>
-
-preferred approach:
-
-    <p>Hello, <span shiro:principal="" />, how are you today?</p>
-
-**Typed principal and principal property are also supported**
 
 ### The `hasRole` tag
     <shiro:hasRole name="administrator">
@@ -76,11 +85,23 @@ preferred approach:
 ### The `hasAnyRoles` tag
     <shiro:hasAnyRoles name="developer, project manager, administrator">
         <div class="message">You are either a developer, project manager, or administrator.</div>
-    </shiro:lacksRole>
+    </shiro:hasAnyRoles>
 
 preferred approach:
 
     <div shiro:hasAnyRoles="developer, project manager, administrator" class="message">
+        You are either a developer, project manager, or administrator.
+    </div>
+    
+    
+### The `hasAllRoles` tag
+    <shiro:hasAllRoles name="developer, project manager, administrator">
+        <div class="message">You are either a developer, project manager, or administrator.</div>
+    </shiro:hasAllRoles>
+
+preferred approach:
+
+    <div shiro:hasAllRoles="developer, project manager, administrator" class="message">
         You are either a developer, project manager, or administrator.
     </div>
 
@@ -92,6 +113,27 @@ preferred approach:
 preferred approach:
 
     <a shiro:hasPermission="user:create" href="createUser.html">Create a new User</a>
+
+### The `hasAllPermissions` tag
+    <shiro:hasAllPermissions name="user:create">
+        <a href="createUser.html">Create a new User</a>
+    </shiro:hasAllPermissions>
+
+preferred approach:
+
+    <a shiro:hasAllPermissions="user:create" href="createUser.html">Create a new User</a>
+
+
+### The `hasAnyPermissions` tag
+    <shiro:hasAnyPermissions name="user:create">
+        <a href="createUser.html">Create a new User</a>
+    </shiro:hasAnyPermissions>
+
+preferred approach:
+
+    <a shiro:hasAnyPermissions="user:create" href="createUser.html">Create a new User</a>
+
+
 
 ### The `lacksPermission` tag
     <shiro:lacksPermission name="user:delete">
