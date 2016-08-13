@@ -1,0 +1,19 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.zunpeng.org/thymeleaf/shiro">
+<head>
+</head>
+<body>
+<p shiro:guest="">GUEST1</p>
+<shiro:guest>
+	GUEST2
+	<div class="hello">zhangsan lisi</div>
+</shiro:guest>
+
+<div shiro:user="">USER1</div>
+<shiro:user>USER2</shiro:user>
+
+<div shiro:hasAllRoles="badrole1,rolea,badrole2">HASANYROLES1</div>
+<shiro:hasAllRoles name="badrole1,rolea,badrole2">HASANYROLES2</shiro:hasAllRoles>
+
+</body>
+</html>

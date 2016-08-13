@@ -1,97 +1,58 @@
-/*****************************************************************************
- * Copyright (c) 2013, theborakompanioni (http://www.example.org)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- ****************************************************************************/
 package org.zunpeng.thymeleaf.shiro.dialect;
 
-import java.util.Collections;
+import org.thymeleaf.dialect.AbstractProcessorDialect;
+import org.thymeleaf.processor.IProcessor;
+import org.thymeleaf.standard.StandardDialect;
+import org.zunpeng.thymeleaf.shiro.processor.attribute.*;
+import org.zunpeng.thymeleaf.shiro.processor.element.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import org.thymeleaf.dialect.AbstractDialect;
-import org.thymeleaf.processor.IProcessor;
+/**
+ * Created by dapeng on 16/8/11.
+ */
+public class ShiroDialect extends AbstractProcessorDialect {
 
-import org.zunpeng.thymeleaf.shiro.processor.attribute.AuthenticatedAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.attribute.GuestAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.attribute.HasAnyRolesAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.attribute.HasPermissionAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.attribute.HasRoleAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.attribute.LacksPermissionAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.attribute.LacksRoleAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.attribute.NotAuthenticatedAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.attribute.PrincipalAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.attribute.UserAttrProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.AuthenticatedElementProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.GuestElementProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.HasAnyRolesElementProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.HasPermissionElementProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.HasRoleElementProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.LacksPermissionElementProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.LacksRoleElementProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.NotAuthenticatedElementProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.PrincipalElementProcessor;
-import org.zunpeng.thymeleaf.shiro.processor.element.UserElementProcessor;
+	private static final String DIALECT_NAME = "Shiro Dialect";
 
-public class ShiroDialect extends AbstractDialect {
-    private static final String PREFIX = "shiro";
-    private static final Set<IProcessor> processors = new HashSet<IProcessor>();
-    static {
-        processors.add(PrincipalAttrProcessor.create());
-        processors.add(PrincipalElementProcessor.create());
+	public ShiroDialect() {
+		super(DIALECT_NAME, "shiro", StandardDialect.PROCESSOR_PRECEDENCE);
+	}
 
-        processors.add(HasAnyRolesAttrProcessor.create());
-        processors.add(HasAnyRolesElementProcessor.create());
+	@Override
+	public Set<IProcessor> getProcessors(String dialectPrefix) {
+		final Set<IProcessor> processors = new HashSet<IProcessor>();
+		processors.add(new GuestAttributeTagProcessor(dialectPrefix));
+		processors.add(new GuestElementTagProcessor(dialectPrefix));
 
-        processors.add(HasRoleAttrProcessor.create());
-        processors.add(HasRoleElementProcessor.create());
+		processors.add(new UserAttributeTagProcessor(dialectPrefix));
+		processors.add(new UserElementTagProcessor(dialectPrefix));
 
-        processors.add(LacksRoleAttrProcessor.create());
-        processors.add(LacksRoleElementProcessor.create());
+		processors.add(new HasAllRolesAttributeTagProcessor(dialectPrefix));
+		processors.add(new HasAllRolesElementTagProcessor(dialectPrefix));
 
-        processors.add(HasPermissionAttrProcessor.create());
-        processors.add(HasPermissionElementProcessor.create());
+		processors.add(new HasAnyRolesAttributeTagProcessor(dialectPrefix));
+		processors.add(new HasAnyRolesElementTagProcessor(dialectPrefix));
 
-        processors.add(LacksPermissionAttrProcessor.create());
-        processors.add(LacksPermissionElementProcessor.create());
+		processors.add(new HasRoleAttributeTagProcessor(dialectPrefix));
+		processors.add(new HasRoleElementTagProcessor(dialectPrefix));
 
-        processors.add(AuthenticatedAttrProcessor.create());
-        processors.add(AuthenticatedElementProcessor.create());
+		processors.add(new LacksRoleAttributeTagProcessor(dialectPrefix));
+		processors.add(new LacksRoleElementTagProcessor(dialectPrefix));
 
-        processors.add(NotAuthenticatedAttrProcessor.create());
-        processors.add(NotAuthenticatedElementProcessor.create());
+		processors.add(new HasAllPermissionsAttributeTagProcessor(dialectPrefix));
+		processors.add(new HasAllPermissionsElementTagProcessor(dialectPrefix));
 
-        processors.add(GuestAttrProcessor.create());
-        processors.add(GuestElementProcessor.create());
+		processors.add(new HasAnyPermissionsAttributeTagProcessor(dialectPrefix));
+		processors.add(new HasAnyPermissionsElementTagProcessor(dialectPrefix));
 
-        processors.add(UserAttrProcessor.create());
-        processors.add(UserElementProcessor.create());
-    }
+		processors.add(new HasPermissionAttributeTagProcessor(dialectPrefix));
+		processors.add(new HasPermissionElementTagProcessor(dialectPrefix));
 
-    public ShiroDialect() {
-        super();
-    }
+		processors.add(new lacksPermissionAttributeTagProcessor(dialectPrefix));
+		processors.add(new LacksPermissionElementTagProcessor(dialectPrefix));
 
-    public String getPrefix() {
-        return PREFIX;
-    }
-
-    public boolean isLenient() {
-        return false;
-    }
-
-    @Override
-    public Set<IProcessor> getProcessors() {
-        return Collections.unmodifiableSet(processors);
-    }
+		return processors;
+	}
 }
