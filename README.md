@@ -1,5 +1,14 @@
-Download
+Thymeleaf 3 shiro tag
 ---
+
+**See also:** 
+
+1. [thymeleaf-extras-shiro](https://github.com/theborakompanioni/thymeleaf-extras-shiro)
+2. [thymeleaf-dialect](http://www.thymeleaf.org/doc/tutorials/3.0/extendingthymeleaf.html)
+
+
+
+###Download
 
 
 Maven
