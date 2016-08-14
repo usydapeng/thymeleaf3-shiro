@@ -1,13 +1,6 @@
-.classpath
-*/.classpath
-.project
-*/.project
-target/
-*/target/*
-.settings/
-*/.settings/*
-bin/
-build
+.gradle
 .idea
-local.properties
 *.iml
+local.properties
+build
+out
