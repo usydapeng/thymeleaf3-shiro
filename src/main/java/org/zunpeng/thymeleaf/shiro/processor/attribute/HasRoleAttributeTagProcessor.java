@@ -21,7 +21,7 @@ public class HasRoleAttributeTagProcessor extends AbstractAttributeTagProcessor 
 	private static final int PRECEDENCE = 300;
 
 
-	public HasRoleAttributeTagProcessor(String dialectPrefix) {
+	public HasRoleAttributeTagProcessor(final String dialectPrefix) {
 		super(
 				TemplateMode.HTML, // This processor will apply only to HTML mode
 				dialectPrefix,     // Prefix to be applied to name for matching

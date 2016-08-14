@@ -21,7 +21,7 @@ public class lacksPermissionAttributeTagProcessor extends AbstractAttributeTagPr
 	private static final int PRECEDENCE = 300;
 
 
-	public lacksPermissionAttributeTagProcessor(String dialectPrefix) {
+	public lacksPermissionAttributeTagProcessor(final String dialectPrefix) {
 		super(
 				TemplateMode.HTML, // This processor will apply only to HTML mode
 				dialectPrefix,     // Prefix to be applied to name for matching
